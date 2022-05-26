@@ -4,6 +4,7 @@ const routerContent         = require("./routers/routerContent")
 const routerConfig          = require("./routers/routerConfig")
 const http                  = require('http')
 const printToConsole        = require('./utils/printToConsole')
+require('./db/mongoose.js')
 
 const exp = express();
 const server = http.createServer(exp)
@@ -16,3 +17,5 @@ exp.use(routerContent)
 server.listen(port, () => {
     printToConsole("server", "Server is up! Using port: ", port, "")
 });
+
+
