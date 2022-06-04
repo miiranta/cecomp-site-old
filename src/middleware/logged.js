@@ -6,7 +6,7 @@ const logged = function(x){
     //x is adminLevel needed!
 
     return async (req, res, next) => {
-
+        
         try {
 
             if(!req.session.redirect){req.session.redirect = "/home"}

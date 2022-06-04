@@ -30,7 +30,7 @@ passport.deserializeUser( async function(token, done) {
     try{
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
+        
         const user = await User.findOne({_id: decoded, "tokens.token": token})
 
         if(!user){throw new Error()}
@@ -39,7 +39,6 @@ passport.deserializeUser( async function(token, done) {
 
     }catch{
       printToConsole('warning', 'Could not verify token!')
-
       done(null, false, { message: 'Bad Session' })
     }
 
@@ -76,7 +75,6 @@ passport.use(new GoogleStrategy({
         return cb(null, userDb)
  
     }catch(e){cb(null, false, { message: 'Bad Session' })}
-
 
   }
 ));

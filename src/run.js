@@ -8,6 +8,7 @@ const routerAuth            = require("./routers/routerAuth")
 const routerContent         = require("./routers/routerContent")
 const routerConfig          = require("./routers/routerConfig")
 const printToConsole        = require('./utils/other/printToConsole')
+const {sanitizeObject}      = require('./utils/other/sanitizeInput')
 require('./db/mongoose.js')
 
 const exp = express();
@@ -22,12 +23,18 @@ const session = cookieSession({
 const publicDirectory = path.join(__dirname, "../public") 
 const viewsDirectory = path.join(__dirname, "../templates/views") //HBS views
 const partialsDirectory = path.join(__dirname, "../templates/partials") //HBS partials
+
 exp.set("view engine","hbs")
 exp.set("views", viewsDirectory)
 hbs.registerPartials(partialsDirectory)
 exp.use(express.static(publicDirectory))
 
 exp.use(express.json({limit: '20mb'}))
+
+exp.use((req, res, next) =>{
+    req.body = sanitizeObject(req.body)
+    next()
+})
 
 exp.use(session)
 

@@ -3,7 +3,8 @@ const passport                                = require('passport')
 const logged                                  = require("../middleware/logged")
 const notLogged                               = require("../middleware/notLogged")
 const logout                                  = require("../utils/auth/logout.js")
-const { deleteOneSession, deleteAllSessions } = require("../utils/auth/deleteSession")
+const {deleteOneSession, deleteAllSessions}   = require("../utils/auth/deleteSession")
+const {sanitizeInput}                         = require("../utils/other/sanitizeInput")
 require("../passport")
 
 const router = new express.Router()
@@ -36,14 +37,14 @@ router.get("/logout", logged(0), async (req, res) => {
   
   //----------------Google-----------------------
   
-  router.get('/auth/google',passport.authenticate('google', { scope: ['profile','email']}))
-  
-  router.get('/auth/google/redirect', 
-    passport.authenticate('google', { failureRedirect: '/logout' }),logged(),
-    function(req, res) {
-  
-      res.redirect(sanitizeInput(req.session.redirect));
-      req.session.redirect = "/home"
-  });
-  
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile','email']}))
+
+router.get('/auth/google/redirect', 
+  passport.authenticate('google', { failureRedirect: '/logout' }),logged(),
+  function(req, res) {
+
+    res.redirect(sanitizeInput(req.session.redirect));
+    req.session.redirect = "/home"
+});
+
 module.exports = router
