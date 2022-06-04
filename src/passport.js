@@ -56,16 +56,21 @@ passport.use(new GoogleStrategy({
 
     const googleId = profile.id
     const email    = profile.emails[0].value
+    const email_ext = email.split("@")[1]
     const name     = profile.displayName
+
+    admin = 0
+    if(email_ext == "usp.br"){ admin = 1 }
 
     try{
 
-    const userDb = await User.findOne({email})
+      const userDb = await User.findOne({email})
 
-    const dataPic = await getProfilePic(profile.photos[0].value)
-    
+      const dataPic = await getProfilePic(profile.photos[0].value)
+
         if(!userDb){
-          const user = await User.create({googleId, email, name, admin: 0, profilePic: dataPic, nick: Date.now().toString(16)})
+
+          const user = await User.create({googleId, email, name, admin, profilePic: dataPic, nick: Date.now().toString(16)})
           printToConsole('session', 'Created new user: ', email, '')
           return cb(null, user)
         }

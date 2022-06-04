@@ -23,24 +23,24 @@ router.get("/logout", logged(0), async (req, res) => {
     res.status(codeRes.status).send()
   })
   
-  //Remove One Session
-  router.delete("/session", logged(0), async (req, res) => {
+//Remove One Session
+router.delete("/session", logged(0), async (req, res) => {
     const codeRes = await deleteOneSession(req) 
     res.status(codeRes.status).send()
-  })
+})
   
-  //Remove All Sessions
-  router.delete("/session/all", logged(0), async (req, res) => {
+//Remove All Sessions
+router.delete("/session/all", logged(0), async (req, res) => {
     const codeRes = await deleteAllSessions(req) 
     res.status(codeRes.status).send()
-  })
+})
   
-  //----------------Google-----------------------
+//----------------Google-----------------------
   
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile','email']}))
 
 router.get('/auth/google/redirect', 
-  passport.authenticate('google', { failureRedirect: '/logout' }),logged(),
+  passport.authenticate('google', { failureRedirect: '/logout' }), logged(0),
   function(req, res) {
 
     res.redirect(sanitizeInput(req.session.redirect));

@@ -1,14 +1,17 @@
 const express               = require('express')
+const socketio              = require("socket.io")
 const http                  = require('http')
 const path                  = require("path")
 const hbs                   = require('hbs')
 const passport              = require('passport')
 const cookieSession         = require("cookie-session")
+const ios                   = require('socket.io-express-session');
 const routerAuth            = require("./routers/routerAuth")
 const routerContent         = require("./routers/routerContent")
 const routerConfig          = require("./routers/routerConfig")
 const printToConsole        = require('./utils/other/printToConsole')
 const {sanitizeObject}      = require('./utils/other/sanitizeInput')
+const {loadSockets}         = require("./routers/sockets")
 require('./db/mongoose.js')
 
 const exp = express();
@@ -19,6 +22,11 @@ const session = cookieSession({
     name: 'session',
     keys: [process.env.SESSION_KEY_1, process.env.SESSION_KEY_1]
 })
+
+const io = socketio(server);
+io.use(ios(session));
+exp.set('io', io);
+loadSockets(io)
 
 const publicDirectory = path.join(__dirname, "../public") 
 const viewsDirectory = path.join(__dirname, "../templates/views") //HBS views
@@ -49,4 +57,4 @@ server.listen(port, () => {
     printToConsole("server", "Server is up! Using port: ", port, "")
 });
 
-
+module.exports = io

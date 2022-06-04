@@ -24,7 +24,7 @@ router.get("/links", (req, res) => {
     res.render("links", {})
 });
 
-router.get("/transparency", logged(1), (req, res) => {
+router.get("/transparency", logged(2), (req, res) => {
     res.render("transparency", {})
 });
 
@@ -32,7 +32,7 @@ router.get("/calendar", (req, res) => {
     res.render("calendar", {})
 });
 
-router.get("/polls", logged(1), (req, res) => {
+router.get("/polls", logged(2), (req, res) => {
     res.render("polls", {})
 });
 
