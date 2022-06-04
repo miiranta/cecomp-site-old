@@ -1,5 +1,5 @@
 const mongoose          = require('mongoose');
-const printToConsole    = require('../utils/printToConsole');
+const printToConsole    = require('../utils/other/printToConsole');
 
 mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
