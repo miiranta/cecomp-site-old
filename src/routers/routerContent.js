@@ -1,6 +1,9 @@
 const express       = require('express')
 const logged        = require("../middleware/logged")
 const notLogged     = require("../middleware/notLogged")
+const path          = require('path')
+
+const msgDirectory = path.join(__dirname, "../../templates/messages") 
 
 const router = new express.Router()
 
@@ -44,7 +47,10 @@ router.get("/console", logged(10), (req, res) => {
     res.render("console", {})
 });
 
-
+//Msgs
+router.get("/msg/notBccMember", async (req, res) => {
+    res.sendFile(msgDirectory + "/notBccMember.html")
+});
 
 
 module.exports = router

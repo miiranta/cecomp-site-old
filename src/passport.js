@@ -75,7 +75,7 @@ passport.use(new GoogleStrategy({
           return cb(null, user)
         }
 
-        await User.updateOne({email},{googleId, email, name, profilePic: dataPic})
+        await User.updateOne({email},{googleId, email, name})
         printToConsole('session', 'Login: ', email, '')
         return cb(null, userDb)
  

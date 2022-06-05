@@ -22,6 +22,7 @@ const logged = function(x){
 
                 printToConsole('warning', 'Redirecting non-auth user')
                 req.user = {}
+
                 return res.redirect("/login")
             }
 
@@ -29,9 +30,10 @@ const logged = function(x){
             if(req.user.admin < x){
                 printToConsole('warning', 'Redirecting non-admin user')
                 req.user = {}
+
+                res.cookie('warning', 'notBccMember')
                 return res.redirect("/home")
             }
-
 
             //Add IP to session ---------------------------------------------
 
@@ -55,9 +57,7 @@ const logged = function(x){
 
             //-----------------------------------------------------------------    
 
-
-            next();
-
+            next()
         }
         catch (error) {res.redirect("/")}
         

@@ -24,6 +24,7 @@ router.get("/account", logged(0), (req, res) => {
 //Nick Update
 router.patch("/account/nick", logged(0), async (req, res) => {
     const codeRes = await updateNick(req) 
+
     res.status(codeRes.status).send()
 })
 
@@ -35,7 +36,5 @@ router.patch("/account/picture", logged(0), upload.single("file"), async (req,re
     printToConsole('warning', 'Could not update profile picture!')
     res.status(400).send()
 })
-
-
 
 module.exports = router

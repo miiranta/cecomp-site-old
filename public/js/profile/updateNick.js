@@ -21,7 +21,6 @@
             $("#nickButton").attr("onclick","changeNick('"+nick+"')");
             $("#nickStatus").text("Nick available");
             block = 0
-
         })   
         }
 
@@ -35,6 +34,7 @@
         conRest('/account/nick', 'PATCH', {nick}, ()=>{
             $("#nickStatus").text("Success!");
             $("#updateredirect").attr("href", "/user/" + nick);
+            $("#nickLabel").text(nick);
         })
     }
 

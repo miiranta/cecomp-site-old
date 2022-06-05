@@ -22,6 +22,8 @@ const loadSockets = function(io){
         socket.emit("messagePopUp", data)
         }
 
+        //sendMessagePopUp({title: "Announcement", content:"oi", buttons: {closeBnt: "closeWarning()"}})
+
     //------------------------------------   
 
     //GET---------------------------------  
