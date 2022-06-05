@@ -1,5 +1,5 @@
 const {sanitizeInput, sanitizeObject}       = require("../utils/other/sanitizeInput.js")
-const path                                  = require('path');
+const verifyNick                            = require("../utils/profile/verifyNick.js")
 
 const loadSockets = function(io){
 
@@ -26,7 +26,9 @@ const loadSockets = function(io){
 
     //GET---------------------------------  
 
-        socket.on("", async (data, callback)=>{
+        socket.on("nick", async (data, callback)=>{
+            dataSanit = sanitizeInput(JSON.parse(data))
+            verifyNick(dataSanit).then((dataReturn)=>{callback(dataReturn)})
         })
 
         socket.on("disconnect", () =>{   

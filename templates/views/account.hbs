@@ -14,6 +14,27 @@
             <a href="/home">Home</a>
         </div>    
 
+        <!--Show name/email-->
+        <div class="banner2 row bg-shadow1">
+            <h1 class="light">{{user.name}}</h1>
+            <h3 class="light">also known as {{user.nick}}</h3>
+            <h2 class="light">{{user.email}}</h2>
+        </div>
+
+        <!--Update nick-->
+        <div class="banner2 row bg-shadow2">
+            {{>updateNick}}
+        </div>
+
+        <!--Update Profile Pic--> 
+        <div class="banner2 row bg-shadow1">
+            <img src="{{user.profilePic}}" />
+            {{>updateProfilePic}}
+        </div>
+
+        <!--Sessions-->
+        {{>fetchSessions}}
+
     </body>
 
 

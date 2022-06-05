@@ -12,6 +12,7 @@ const routerConfig          = require("./routers/routerConfig")
 const printToConsole        = require('./utils/other/printToConsole')
 const {sanitizeObject}      = require('./utils/other/sanitizeInput')
 const {loadSockets}         = require("./routers/sockets")
+const loadHbsHelpers        = require("./utils/other/loadHbsHelpers")
 require('./db/mongoose.js')
 
 const exp = express();
@@ -35,7 +36,9 @@ const partialsDirectory = path.join(__dirname, "../templates/partials") //HBS pa
 exp.set("view engine","hbs")
 exp.set("views", viewsDirectory)
 hbs.registerPartials(partialsDirectory)
+hbs.registerPartials(partialsDirectory + "/profile")
 exp.use(express.static(publicDirectory))
+loadHbsHelpers();
 
 exp.use(express.json({limit: '20mb'}))
 
