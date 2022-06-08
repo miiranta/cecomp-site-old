@@ -9,6 +9,7 @@ const ios                   = require('socket.io-express-session');
 const routerAuth            = require("./routers/routerAuth")
 const routerContent         = require("./routers/routerContent")
 const routerConfig          = require("./routers/routerConfig")
+const routerForms           = require("./routers/routerForms")
 const printToConsole        = require('./utils/other/printToConsole')
 const {sanitizeObject}      = require('./utils/other/sanitizeInput')
 const {loadSockets}         = require("./routers/sockets")
@@ -55,6 +56,7 @@ exp.use(passport.session());
 exp.use(routerAuth)
 exp.use(routerConfig)
 exp.use(routerContent)
+exp.use(routerForms)
 
 server.listen(port, () => {
     printToConsole("server", "Server is up! Using port: ", port, "")

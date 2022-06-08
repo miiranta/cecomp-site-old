@@ -4,17 +4,17 @@ const verifyNick = async (nick)=>{
 
     //Contain special character?
     var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    if(format.test(nick)){return "Nicks can't contain special characters!"}
+    if(format.test(nick)){return "Nicks não podem ter caracteres especiais!"}
 
     //Contain spaces?
-    if(/\s/g.test(nick)){return "Nicks can't have spaces!"}
+    if(/\s/g.test(nick)){return "Nicks não podem ter espaço!"}
 
     //Too big / too small
-    if(nick.length>15||nick.length<5){return "Nicks need to have between 5 to 15 characters!"}
+    if(nick.length>15||nick.length<5){return "Nicks precisam ter entre 5 e 15 caracteres!"}
 
     //Search Db for nick taken
     const user = await User.findOne({nick})
-    if(user){return "Nick already taken!"}
+    if(user){return "Este nick não está mais disponível!"}
 
     //Everything is fine
     return false;

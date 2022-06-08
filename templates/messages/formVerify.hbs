@@ -1,0 +1,40 @@
+<div>
+    <h2>Solicitar verificação<h2></div>
+    <h3>Preencha alguns dados para serem verificados pela CECOMP<h3>
+</div>
+<div style="height:50px"></div>
+
+
+<div id="formVer" class="row">
+
+    <div><h3>Número USP<h3></div>
+    <input id="formVer_uspNumber" type="text" class="input2" style="width:100px">
+
+    <div><h3>Curso<h3></div>
+    <div>
+        <select id="formVer_course" class="select1">
+            <option value="0"></option>
+            <option value="2">Bacharelado em Ciencias da Computação - FFCLRP</option>
+            <option value="3">Matemática Aplicada a Negócios - FFCLRP</option>
+            <option value="4">Informática Biomédica - FMRP</option>
+            <option value="1">Outro</option>
+        </select>
+    </div>
+    <input id="formVer_otherCourse" type="text" class="input2" style="display: none;" placeholder="Insira o nome">
+
+
+    <div><h3>Turma<h3></div>
+    <input id="formVer_class" type="number" class="input2" min="1" style="width:50px"> 
+
+
+    <div>
+    <button id="formVer_submit" type="submit" class="bnt1" onclick="sendFormVerify()"> Enviar </button>
+    </div>
+
+
+    <label id="formVer_label"></label>
+
+</div>
+
+<!--forms JS-->
+<script src="\js/forms/formVerify.js"></script>

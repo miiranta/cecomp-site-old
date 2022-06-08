@@ -1,5 +1,6 @@
 const {sanitizeInput, sanitizeObject}       = require("../utils/other/sanitizeInput.js")
 const verifyNick                            = require("../utils/profile/verifyNick.js")
+const {verifyFormVerifySocket}              = require("../utils/forms/verifyFormVerify.js")
 
 const loadSockets = function(io){
 
@@ -31,6 +32,11 @@ const loadSockets = function(io){
         socket.on("nick", async (data, callback)=>{
             dataSanit = sanitizeInput(JSON.parse(data))
             verifyNick(dataSanit).then((dataReturn)=>{callback(dataReturn)})
+        })
+
+        socket.on("formVerify", async (data, callback)=>{
+            dataSanit = sanitizeObject(JSON.parse(data))
+            verifyFormVerifySocket(dataSanit, socket).then((dataReturn)=>{callback(dataReturn)})
         })
 
         socket.on("disconnect", () =>{   

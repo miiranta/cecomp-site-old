@@ -1,7 +1,8 @@
-const express       = require('express')
-const logged        = require("../middleware/logged")
-const notLogged     = require("../middleware/notLogged")
-const path          = require('path')
+const express           = require('express')
+const logged            = require("../middleware/logged")
+const printToConsole    = require("../utils/other/printToConsole")
+const path              = require('path')
+const fs                = require('fs')
 
 const msgDirectory = path.join(__dirname, "../../templates/messages") 
 
@@ -27,7 +28,7 @@ router.get("/links", (req, res) => {
     res.render("links", {})
 });
 
-router.get("/transparency", logged(2), (req, res) => {
+router.get("/transparency", logged(3), (req, res) => {
     res.render("transparency", {})
 });
 
@@ -35,7 +36,7 @@ router.get("/calendar", (req, res) => {
     res.render("calendar", {})
 });
 
-router.get("/polls", logged(2), (req, res) => {
+router.get("/polls", logged(3), (req, res) => {
     res.render("polls", {})
 });
 
@@ -48,8 +49,14 @@ router.get("/console", logged(10), (req, res) => {
 });
 
 //Msgs
-router.get("/msg/notBccMember", async (req, res) => {
-    res.sendFile(msgDirectory + "/notBccMember.html")
+router.get("/msg/:msgCode", async (req, res) => {
+    msgPath = msgDirectory + "/" + req.params.msgCode;
+    try{
+        if (fs.existsSync(msgPath + ".hbs")) {
+            return res.render(msgDirectory + "/" + req.params.msgCode, {})
+        }
+        printToConsole('warning', 'Trying to access non-existing msg: ' + req.params.msgCode)
+      }catch(err) {}
 });
 
 

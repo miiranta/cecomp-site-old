@@ -23,16 +23,28 @@ const logged = function(x){
                 printToConsole('warning', 'Redirecting non-auth user')
                 req.user = {}
 
-                return res.redirect("/login")
+                if(req.method == "GET"){
+                    return res.redirect("/login")
+                }else{
+                    return res.status(401).send()
+                }
             }
 
             //Admin level is enough?
             if(req.user.admin < x){
                 printToConsole('warning', 'Redirecting non-admin user')
+                
+                if(req.user.admin == 0){res.cookie('warning', 'notUspMember')}
+                if(req.user.admin == 1){res.cookie('warning', 'notVerified')}
+                if(req.user.admin == 2){res.cookie('warning', 'notBccMember')}
+                
                 req.user = {}
-
-                res.cookie('warning', 'notBccMember')
-                return res.redirect("/home")
+                if(req.method == "GET"){
+                    return res.redirect("/home")
+                }else{
+                    return res.status(401).send()
+                }
+                    
             }
 
             //Add IP to session ---------------------------------------------
@@ -59,7 +71,15 @@ const logged = function(x){
 
             next()
         }
-        catch (error) {res.redirect("/")}
+        catch (error) {
+
+            if(req.method == "GET"){
+                return res.redirect("/")
+            }else{
+                return res.status(500).send()
+            }
+            
+        }
         
     }
 
